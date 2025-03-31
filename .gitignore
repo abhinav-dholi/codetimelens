@@ -1,0 +1,45 @@
+# === Rust Build Artifacts ===
+/target/
+**/*.rs.bk
+
+# === Dependency Artifacts ===
+/Cargo.lock
+
+# === Database & Output Files ===
+codetimelens.db
+export.json
+export.csv
+
+# === Logs ===
+*.log
+
+# === IDEs and Editors ===
+# VSCode
+.vscode/
+
+# JetBrains (CLion, IntelliJ, etc.)
+.idea/
+
+# Vim / Emacs / Sublime
+*~
+*.swp
+*.swo
+*.swn
+*.bak
+*.tmp
+
+# === OS-Specific ===
+.DS_Store
+Thumbs.db
+
+# === Binaries ===
+*.exe
+*.dll
+*.so
+*.dylib
+
+# === Generated Files ===
+/codetimelens.db
+
+# === Misc ===
+*.old

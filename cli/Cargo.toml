@@ -1,0 +1,12 @@
+[package]
+name = "cli"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+clap = { version = "4.4", features = ["derive"] }
+core = { path = "../core" }
+db = { path = "../db" }
+daemon = { path = "../daemon" }
+tui_viewer = { path = "../tui_viewer" }
+chrono = "0.4"

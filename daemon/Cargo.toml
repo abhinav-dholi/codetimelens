@@ -1,0 +1,10 @@
+[package]
+name = "daemon"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+notify = "6"
+chrono = "0.4"
+db = { path = "../db" }
+ctrlc = "3.4"

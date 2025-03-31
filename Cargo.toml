@@ -1,0 +1,9 @@
+[workspace]
+members = [
+    "cli",
+    "core",
+    "db",
+    "daemon",
+    "tui_viewer",
+    "codetimelens"
+]
