@@ -87,6 +87,16 @@ codetimelens export --format csv
 
 ---
 
+### View recent Git commit history
+
+```bash
+codetimelens git-insight --path /path/to/git/repo
+```
+
+- Displays the last 10 commits with timestamps, author, and message
+
+---
+
 ### TUI Dashboard (Coming Soon)
 
 ```bash
