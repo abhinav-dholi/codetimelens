@@ -43,7 +43,6 @@ impl GitAnalyzer {
             let author = commit.author();
             let message = commit.summary().unwrap_or("No commit message");
 
-            // Convert commit time to chrono DateTime<Utc>
             let time = commit.time();
             let secs = time.seconds();
             let datetime = DateTime::<Utc>::from_timestamp(secs, 0)
