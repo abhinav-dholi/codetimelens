@@ -1,6 +1,6 @@
 # CodeTimeLens
 
-CodeTimeLens is a blazing-fast, privacy-respecting developer productivity tool built in Rust. It monitors your coding sessions, tracks file changes, correlates with Git commits, and gives you deep insights into how you code — all while running locally and efficiently.
+CodeTimeLens is a lightweight, privacy-respecting developer productivity tool built in Rust. It monitors your coding sessions, tracks file changes, correlates with Git commits, and gives you deep insights into how you code — all while running locally and efficiently.
 
 Whether you’re a solo hacker, freelancer, or engineering lead, CodeTimeLens helps you answer:
 - How much time did I actually spend on this feature?
