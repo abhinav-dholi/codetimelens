@@ -1,6 +1,5 @@
 use chrono::{DateTime, Utc};
 use git2::Repository;
-use std::path::Path;
 
 #[derive(Debug, Clone)]
 pub struct Session {
@@ -13,7 +12,12 @@ pub struct Session {
 pub struct SessionTracker;
 
 impl SessionTracker {
-    pub fn create_session(start: DateTime<Utc>, end: DateTime<Utc>, path: &str, files: Vec<String>) -> Session {
+    pub fn create_session(
+        start: DateTime<Utc>,
+        end: DateTime<Utc>,
+        path: &str,
+        files: Vec<String>,
+    ) -> Session {
         Session {
             start,
             end,
@@ -26,20 +30,37 @@ impl SessionTracker {
 pub struct GitAnalyzer;
 
 impl GitAnalyzer {
-    pub fn analyze_commits(path: &str) {
-        let repo = Repository::open(Path::new(path)).expect("Failed to open Git repo");
-        let mut revwalk = repo.revwalk().unwrap();
-        revwalk.push_head().unwrap();
+    pub fn analyze_recent_commits(path: std::path::PathBuf) -> Result<(), Box<dyn std::error::Error>> {
+        let repo = Repository::open(path)?;
+        let mut revwalk = repo.revwalk()?;
+        revwalk.push_head()?;
 
-        for oid in revwalk.take(10) {
-            if let Ok(oid) = oid {
-                let commit = repo.find_commit(oid).unwrap();
-                println!(
-                    "Commit {}: {}",
-                    commit.id(),
-                    commit.summary().unwrap_or("No message")
-                );
+        println!("📚 Recent Git Commits:");
+
+        for (i, oid) in revwalk.enumerate().take(10) {
+            let oid = oid?;
+            let commit = repo.find_commit(oid)?;
+            let author = commit.author();
+            let message = commit.summary().unwrap_or("No commit message");
+
+            // Convert commit time to chrono DateTime<Utc>
+            let time = commit.time();
+            let secs = time.seconds();
+            let datetime = DateTime::<Utc>::from_timestamp(secs, 0)
+                .ok_or("Invalid timestamp")?;
+
+            println!(
+                "- {} | {} | {}",
+                datetime.format("%Y-%m-%d %H:%M"),
+                author.name().unwrap_or("Unknown"),
+                message
+            );
+
+            if i == 9 {
+                break;
             }
         }
+
+        Ok(())
     }
 }
