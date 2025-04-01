@@ -1,4 +1,5 @@
 use clap::{Parser, Subcommand};
+use core::session_tracker::{SessionTracker, GitAnalyzer};
 use daemon::watcher::start_watching;
 use db::database::{init_db, get_history, export_sessions};
 use tui_viewer::dashboard::run_tui;
@@ -27,6 +28,10 @@ enum Commands {
     Export {
         #[arg(short, long)]
         format: String,
+    },
+    GitInsight {
+        #[arg(short, long)]
+        path: PathBuf,
     },
     Uninstall {},
     Update {},
@@ -125,6 +130,12 @@ pub fn run() {
 
         Commands::Export { format } => {
             let _ = export_sessions(&format);
+        }
+        Commands::GitInsight { path } => {
+            match GitAnalyzer::analyze_recent_commits(path) {
+                Ok(_) => {},
+                Err(e) => eprintln!("❌ Git insight error: {}", e),
+            }
         }
         Commands::Uninstall {} => {
             println!("📦 Uninstalling CodeTimeLens...");
